@@ -1,0 +1,61 @@
+/*admin:id,email
+programme:id,start time, end time, room_id,programme_type_id
+room:id,capacity,addres_id
+programme_type:id,name
+attendes:programme_id,cnp
+address:id,city,country,street,number,phone,postal code
+room_type:room_id,programme_type_id
+*/
+
+create database programmedb
+
+CREATE TABLE Address (
+id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+city tinytext,
+country tinytext,
+postalcode varchar(10),
+phone varchar(20),
+county tinytext,
+street tinytext,
+nr int
+)
+
+CREATE TABLE MyAdmins ( id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, email VARCHAR(50) )
+
+CREATE TABLE programme_type (
+id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+name varchar(100)
+)
+
+CREATE TABLE room (
+id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+capacity mediumint, 
+address_id int unsigned,
+FOREIGN KEY (address_id) REFERENCES address(id)
+)
+
+CREATE TABLE programme (
+id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+start_time datetime,
+end_time datetime,
+room_id int unsigned,
+FOREIGN KEY (room_id) REFERENCES room(id),
+programme_type_id int unsigned,
+FOREIGN KEY (programme_type_id) REFERENCES programme_type(id)
+
+
+CREATE TABLE room_type (
+id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+room_id int unsigned,
+FOREIGN KEY (room_id) REFERENCES room(id),
+programme_type_id int unsigned,
+FOREIGN KEY (programme_type_id) REFERENCES programme_type(id)
+)
+
+
+CREATE TABLE attendees (
+id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+cnp varchar(20),
+programme_id int unsigned,
+FOREIGN KEY (programme_id) REFERENCES programme(id)
+)
