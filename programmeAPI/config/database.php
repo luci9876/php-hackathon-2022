@@ -11,7 +11,7 @@ class Database{
     
     public function getConnection(){
         echo "Starting connection...";
-        echo "<br>";
+        
         $this->conn = null;
   
         try{
@@ -20,8 +20,8 @@ class Database{
         }catch(PDOException $exception){
             echo "Connection error: " . $exception->getMessage();
         }
-       echo "Connected succesfully!";
-       echo "<br>";
+       echo "Connected succesfully! ";
+       echo "\n";
         return $this->conn;
     }
 }

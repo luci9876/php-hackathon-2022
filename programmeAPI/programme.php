@@ -39,8 +39,8 @@ class Programme{
         // bind values
         $stmt->bindParam(":start_time", $this->start_time);
         $stmt->bindParam(":end_time", $this->end_time);
-        $stmt->bindParam(":room_id", $this->d);
-        $stmt->bindParam(":programme_type_id", $this->category_id);
+        $stmt->bindParam(":room_id", $this->room_id);
+        $stmt->bindParam(":programme_type_id", $this->programme_type_id);
         
       
         // execute query
@@ -56,15 +56,32 @@ class Programme{
     function read(){
   
         // select all query
-        $query = "SELECT start_time, end_time FROM  $this->table_name" ;
+        $query = "SELECT start_time, end_time FROM  $this->table_name where room_id = ?" ;
       
         // prepare query statement
         $stmt = $this->conn->prepare($query);
-      
+        $stmt->bindParam(1, $this->room_id);
         // execute query
         $stmt->execute();
-      
-        return $stmt;
+        $programme_arr=array();
+        
+
+        $num = $stmt->rowCount();
+        if($num>0)
+        {
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+                extract($row);
+          
+                $item=array(
+                    "start" => $start_time,
+                    "end" => $end_time,   
+                );
+          
+                array_push($programme_arr, $item);
+            }
+
+        }        
+        return $programme_arr;
     }
 
     // delete the programme
@@ -84,10 +101,30 @@ function delete(){
   
     // execute query
     if($stmt->execute()){
+        if($stmt->rowCount()==0 ){
+           echo 'Invalid id!';
+           echo "\n";
+        }
         return true;
     }
   
     return false;
+}
+function getRoom($p_id){
+  
+    // select all query
+    $query = "SELECT room_id FROM  $this->table_name where id = ?" ;
+  
+    // prepare query statement
+    $stmt = $this->conn->prepare($query);
+  
+    // execute query
+    $stmt->bindParam(1, $p_id);
+    $stmt->execute();
+    $result = $stmt->fetch();
+    return $result[0];
+  
+    //return $stmt;
 }
 }
 ?>

@@ -11,7 +11,7 @@ include_once 'config/database.php';
   
 // instantiate programme object
 include_once 'programme.php';
-  
+include_once 'room_type.php';  
 $database = new Database();
 $db = $database->getConnection();
   
@@ -33,8 +33,37 @@ if(
     $programme->end_time = $data->end_time;
     $programme->room_id = $data->room_id;
     $programme->programme_type_id = $data->programme_type_id;
-    
+    $room_type = new RoomType($db);
+    $room_type->room_id = $data->room_id;
+    $room_type->programme_type_id = $data->programme_type_id;
+
+    if($room_type->checkRoom() < 1) {
+        http_response_code(400);
   
+        // tell the user
+        echo json_encode(array("message" => "Unable to create programme. Room don't support this typeof programme!"));
+        exit(0);
+    }
+    $programmes=$programme->read();
+    if(!empty($programmes))
+    {
+        $arr = ($programmes);
+
+        foreach($arr as $item) 
+        { 
+     $start = $item['start'];
+     $end =$item['end'];
+     if($programme->start_time <= $end && $start <= $programme->end_time) 
+     {
+        http_response_code(400);
+  
+        // tell the user
+        echo json_encode(array("message" => "Unable to create programme. Room is not avaiable!"));
+        exit(0);
+    }
+        }
+
+    }
     // create the programme
     if($programme->create()){
   

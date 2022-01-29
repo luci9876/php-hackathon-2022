@@ -27,5 +27,21 @@ class RoomType{
       
         return $stmt;
     }
+    function checkRoom()
+    {
+        $query = "SELECT * FROM ".  $this->table_name. " WHERE room_id = ? and programme_type_id = ?" ;
+        $stmt = $this->conn->prepare($query);
+        $this->progrmamme_type_id=htmlspecialchars(strip_tags($this->programme_type_id));
+        $this->room_id=htmlspecialchars(strip_tags($this->room_id));
+  
+        $stmt->bindParam(1, $this->room_id);
+        $stmt->bindParam(2, $this->programme_type_id);
+      
+        // execute query
+        $stmt->execute();
+       echo $stmt->rowCount();
+        return $stmt->rowCount();
+
+    }
 }
 ?>
