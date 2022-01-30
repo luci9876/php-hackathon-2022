@@ -1,4 +1,4 @@
-/*admin:id,email
+/*admin:id,username,password
 programme:id,start time, end time, room_id,programme_type_id
 room:id,capacity,addres_id
 programme_type:id,name
@@ -20,7 +20,7 @@ street tinytext,
 nr int
 )
 
-CREATE TABLE MyAdmins ( id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, email VARCHAR(50) )
+CREATE TABLE Admins ( id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, username VARCHAR(50),password VARCHAR(255) )
 
 CREATE TABLE programme_type (
 id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,

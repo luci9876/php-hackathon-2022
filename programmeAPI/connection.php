@@ -1,6 +1,6 @@
 <?php
+//test purpose, check connection
 include_once 'config/database.php';
-// instantiate database and product object
+// instantiate database 
 $database = new Database();
 $db = $database->getConnection();
-?>

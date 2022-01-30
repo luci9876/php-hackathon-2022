@@ -13,47 +13,56 @@ You have estimated it takes 4 weeks to build this solution. You have 3 days. Goo
 
 ## Technical documentation
 ### Data and Domain model
-In this section, please describe the main entities you managed to identify, the relationships between them and how you mapped them in the database.
+For data structure see db.txt in config folder and folder named populate to see added data.
 ### Application architecture
-In this section, please provide a brief overview of the design of your application and highlight the main components and the interaction between them.
+Main components are programme, room and attendees table used for booking.I also created an address table for rooms so multiple rooms could be at the same location.
 ###  Implementation
 ##### Functionalities
 For each of the following functionalities, please tick the box if you implemented it and describe its input and output in your application:
 
 [x] Brew coffee \
-[ ] Create programme \
-[ ] Delete programme \
-[ ] Book a programme 
+[x] Create programme \
+[x] Delete programme \
+[x] Book a programme 
 
 ##### Business rules
-Please highlight all the validations and mechanisms you identified as necessary in order to avoid inconsistent states and apply the business logic in your application.
+Create programme:check string for authorization(I created admins table but since the authorization involves just a string I used their password), check if room is suitable for this programme type, check if room is avaible in a time slot.
+Delete programme:check string for authorization, inside delete function for a programme I checked if id provided for deletion is valid.
+Book a programme:check if CNP is already enrolled, check for capacity (if the programme is not already full), check if CNP is valid
 
 ##### 3rd party libraries (if applicable)
-Please give a brief review of the 3rd party libraries you used and how/ why you've integrated them into your project.
-
+-
 ##### Environment
 Please fill in the following table with the technologies you used in order to work at your application. Feel free to add more rows if you want us to know about anything else you used.
 | Name | Choice |
 | ------ | ------ |
-| Operating system (OS) | e.g. Ubuntu 20.04 |
-| Database  | e.g. MySQL 8.0|
-| Web server| e.g. Nginx |
-| PHP | e.g. 7.0 |
-| IDE | e.g. PhpStorm |
+| Operating system (OS) |  Windows 10 Pro |
+| Database  |  MySQL 8.0|
+| Web server| Apache HTTP Server |
+| PHP | 8.0.6 |
+| IDE | Visual Studio Code |
 
 ### Testing
-In this section, please list the steps and/ or tools you've used in order to test the behaviour of your solution.
+I used XAMPP to start and apache server and tested all functionalities with Postman.
 
 ## Feedback
 In this section, please let us know what is your opinion about this experience and how we can improve it:
 
 1. Have you ever been involved in a similar experience? If so, how was this one different?
+No, is my first experience with PHP.
 2. Do you think this type of selection process is suitable for you?
+Yes.
 3. What's your opinion about the complexity of the requirements?
+It was medium, even I as a begginer in PHP i created this API based on my previous experience with other tehnologies.
 4. What did you enjoy the most?
+It was involving my own creativity.
 5. What was the most challenging part of this anti hackathon?
+For me, especially retrvieving data in different forms.
 6. Do you think the time limit was suitable for the requirements?
+Yes.
 7. Did you find the resources you were sent on your email useful?
+Honestly, I used other sources that  I found googling.
 8. Is there anything you would like to improve to your current implementation?
+Probably to structure my files on folders based on main components.
 9. What would you change regarding this anti hackathon?
-
+A better way to provide requirements than a readme file.
